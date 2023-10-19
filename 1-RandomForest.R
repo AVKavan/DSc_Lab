@@ -1,0 +1,16 @@
+install.packages("randomForest")
+install.packages("caTools")
+library(randomForest)
+library(caTools)
+head(iris)
+split<-sample.split(iris)
+train<-subset(iris,split=="TRUE")
+test<-subset(iris,split=="FALSE")
+set.seed = 100
+rf=randomForest(x=train[1:4],y=train$Species,ntree=500)
+y_pred=predict(rf,newdata = test[1:4])
+cmf=table(test$Species,y_pred)
+plot(rf)
+importance(rf)
+varImpPlot(rf)
+
